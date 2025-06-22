@@ -1,5 +1,6 @@
 package tests;
 
+import helpers.WithLogin;
 import io.qameta.allure.Owner;
 import models.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,9 +24,9 @@ import static tests.TestData.*;
 @Tag("delete_books")
 @DisplayName("Тесты на удаление книг")
 public class DeleteBookTests extends TestBase {
-    String userId, token, expires;
+    //String userId, token, expires;
 
-    @BeforeEach
+    /*@BeforeEach
     public void authorizationTest() {
         LoginRequestModel authData = new LoginRequestModel();
         authData.setUserName(login);
@@ -43,13 +44,14 @@ public class DeleteBookTests extends TestBase {
         userId = response.getUserId();
         token = response.getToken();
         expires = response.getExpires();
-    }
+    }*/
 
     @DisplayName("Успешное удаление книги из корзины")
+    @WithLogin
     @Test
     public void successDeleteBookTest() {
         ProfilePage profilePage = new ProfilePage();
-        FaviconPage faviconPage = new FaviconPage();
+        //FaviconPage faviconPage = new FaviconPage();
 
         IsbnModel isbn = new IsbnModel();
         isbn.setIsbn(bookISBN);
@@ -88,8 +90,8 @@ public class DeleteBookTests extends TestBase {
                         .spec(bookResponseSpec(204))
         );
 
-        faviconPage.openPage()
-                .setCookie(userId, expires, token);
+        /*faviconPage.openPage()
+                .setCookie(userId, expires, token);*/
         profilePage.openPage()
                 .checkEmptyTableWithoutBooks();
     }
