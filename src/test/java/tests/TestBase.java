@@ -29,10 +29,15 @@ public class TestBase {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         RestAssured.baseURI = "https://demoqa.com";
-        Configuration.browser = System.getProperty("browser", "chrome");
+        /*Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser.version", "");
-        Configuration.browserSize = System.getProperty("browser.size", "1920x1080");
+        Configuration.browserSize = System.getProperty("browser.size", "1920x1080");*/
+
+        System.setProperty("wdm.enabled", "false");  // Блокировка WebDriverManager
         System.setProperty("selenide.driverManagerEnabled", "false");
+        System.setProperty("webdriver.remote.url", "http://user1:1234@selenoid.autotests.cloud/wd/hub");
+        System.setProperty("webdriver.remote.driver", "chrome");
+        System.setProperty("webdriver.remote.browser.version", "128.0");
     }
 
     @BeforeEach
@@ -46,6 +51,13 @@ public class TestBase {
         Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
         Configuration.browserCapabilities = capabilities;
         Configuration.holdBrowserOpen = false;
+
+        System.out.println("=== CONFIG ===");
+        System.out.println("Remote URL: " + Configuration.remote);
+        System.out.println("Browser: " + Configuration.browser);
+        System.out.println("Version: " + Configuration.browserVersion);
+        System.out.println("DriverManager enabled: " +
+                System.getProperty("selenide.driverManagerEnabled"));
     }
 
     @AfterEach
