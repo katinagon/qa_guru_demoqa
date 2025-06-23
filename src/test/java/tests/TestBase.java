@@ -32,6 +32,7 @@ public class TestBase {
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser.version", "");
         Configuration.browserSize = System.getProperty("browser.size", "1920x1080");
+        System.setProperty("selenide.driverManagerEnabled", "false");
     }
 
     @BeforeEach
