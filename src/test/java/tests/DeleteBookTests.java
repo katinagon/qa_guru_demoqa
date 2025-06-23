@@ -1,5 +1,6 @@
 package tests;
 
+import api.BookApi;
 import helpers.WithLogin;
 import io.qameta.allure.Owner;
 import models.*;
@@ -12,6 +13,7 @@ import pages.ProfilePage;
 
 import java.util.List;
 
+import static api.BookApi.*;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static io.restassured.RestAssured.given;
 import static specs.BookSpec.bookRequestSpec;
@@ -56,6 +58,7 @@ public class DeleteBookTests extends TestBase {
         IsbnModel isbn = new IsbnModel();
         isbn.setIsbn(bookISBN);
         List<IsbnModel> isbns = List.of(isbn);
+
         AddBookRequestModel addBookData = new AddBookRequestModel();
         addBookData.setUserId(userId);
         addBookData.setCollectionOfIsbns(isbns);
@@ -65,30 +68,13 @@ public class DeleteBookTests extends TestBase {
         deleteBookData.setIsbn(bookISBN);
 
         step("Удаление всех имеющихся в корзине книг", () ->
-                given(bookRequestSpec(token))
-                        .when()
-                        .delete(booksEP + "?UserId=" + userId)
-                        .then()
-                        .spec(bookResponseSpec(204))
-        );
+                deleteAllBooks());
 
         step("Добавление книги в корзину", () ->
-                given(bookRequestSpec(token))
-                        .body(addBookData)
-                        .when()
-                        .post(booksEP)
-                        .then()
-                        .spec(bookResponseSpec(201))
-        );
+                addBook(addBookData));
 
         step("Удаление добавленной книги из корзины", () ->
-                given(bookRequestSpec(token))
-                        .body(deleteBookData)
-                        .when()
-                        .delete(bookEP)
-                        .then()
-                        .spec(bookResponseSpec(204))
-        );
+                deleteBook(deleteBookData));
 
         /*faviconPage.openPage()
                 .setCookie(userId, expires, token);*/

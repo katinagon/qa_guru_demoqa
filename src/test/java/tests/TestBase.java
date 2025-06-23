@@ -29,12 +29,12 @@ public class TestBase {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         RestAssured.baseURI = "https://demoqa.com";
-        Configuration.browser = System.getProperty("browser", "chrome");
+        /*Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser.version", "128.0");
-        Configuration.browserSize = System.getProperty("browser.size", "1920x1080");
+        Configuration.browserSize = System.getProperty("browser.size", "1920x1080");*/
     }
 
-    @BeforeEach
+    /*@BeforeEach
     public void beforeEach() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -45,15 +45,15 @@ public class TestBase {
         Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
         Configuration.browserCapabilities = capabilities;
         Configuration.holdBrowserOpen = false;
-    }
+    }*/
 
     @AfterEach
     void shutDown() {
-        Attach.screenshotAs("Скриншот результата");
+        /*Attach.screenshotAs("Скриншот результата");
         Attach.pageSource();
         if (!Configuration.browser.equals("firefox"))
             Attach.browserConsoleLogs();
-        Attach.addVideo();
+        Attach.addVideo();*/
         closeWebDriver();
     }
 }

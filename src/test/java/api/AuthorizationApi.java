@@ -1,4 +1,4 @@
-package api.authorization;
+package api;
 
 import models.LoginRequestModel;
 import models.LoginResponseModel;
