@@ -3,7 +3,6 @@ package api;
 import models.LoginRequestModel;
 import models.LoginResponseModel;
 
-import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static io.restassured.RestAssured.given;
 import static specs.LoginSpec.authRequestSpec;
 import static specs.LoginSpec.authResponseSpec;
