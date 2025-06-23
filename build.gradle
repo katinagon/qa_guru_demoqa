@@ -22,7 +22,7 @@ repositories {
     mavenCentral()
 }
 
-def selenideVersion = "7.7.3",
+def selenideVersion = "7.5.0",
     restAssuredVersion = "5.5.5",
     allureVersion = "2.21.0"
 
