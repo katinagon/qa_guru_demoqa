@@ -24,18 +24,24 @@ public class TestBase {
     public static String bookEP = "/BookStore/v1/Book";
 
     @BeforeAll
-    public static void beforeAll() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
+    public static void setupGlobalTestConfiguration() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         RestAssured.baseURI = "https://demoqa.com";
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser.version", "");
         Configuration.browserSize = System.getProperty("browser.size", "1920x1080");
+
+        if (isRemoteExecution()) {
+            setupRemoteWebDriver();
+        }
     }
 
-    @BeforeEach
-    public void beforeEach() {
+    private static boolean isRemoteExecution() {
+        return SELENOID_URL != null && !SELENOID_URL.isEmpty();
+    }
+
+    private static void setupRemoteWebDriver() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
@@ -44,7 +50,11 @@ public class TestBase {
         ));
         Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
         Configuration.browserCapabilities = capabilities;
-        Configuration.holdBrowserOpen = false;
+    }
+
+    @BeforeEach
+    public void setupAllureListener() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @AfterEach
@@ -53,7 +63,9 @@ public class TestBase {
         Attach.pageSource();
         if (!Configuration.browser.equals("firefox"))
             Attach.browserConsoleLogs();
-        Attach.addVideo();
+        if (isRemoteExecution()) {
+            Attach.addVideo();
+        }
         closeWebDriver();
     }
 }

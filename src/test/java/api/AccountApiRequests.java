@@ -10,9 +10,9 @@ import static tests.TestBase.loginEP;
 import static tests.TestData.login;
 import static tests.TestData.password;
 
-public class AuthorizationApi {
+public class AccountApiRequests {
 
-    public static LoginResponseModel authorization() {
+    public static LoginResponseModel loginRequest() {
         LoginRequestModel authData = new LoginRequestModel();
         authData.setUserName(login);
         authData.setPassword(password);

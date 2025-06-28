@@ -1,6 +1,6 @@
 package helpers;
 
-import api.AuthorizationApi;
+import api.AccountApiRequests;
 import models.LoginResponseModel;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -15,7 +15,7 @@ public class LoginExtension implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
-        LoginResponseModel response = AuthorizationApi.authorization();
+        LoginResponseModel response = AccountApiRequests.loginRequest();
 
         userId = response.getUserId();
         token = response.getToken();

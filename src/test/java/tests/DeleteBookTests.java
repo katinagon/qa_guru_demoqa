@@ -10,7 +10,7 @@ import pages.ProfilePage;
 
 import java.util.List;
 
-import static api.BookApi.*;
+import static api.BookStoreApiRequests.*;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static tests.TestData.*;
 
@@ -38,13 +38,13 @@ public class DeleteBookTests extends TestBase {
         deleteBookData.setIsbn(bookISBN);
 
         step("Удаление всех имеющихся в корзине книг", () ->
-                deleteAllBooks());
+                deleteAllBooksRequest());
 
         step("Добавление книги в корзину", () ->
-                addBook(addBookData));
+                addBookRequest(addBookData));
 
         step("Удаление добавленной книги из корзины", () ->
-                deleteBook(deleteBookData));
+                deleteBookRequest(deleteBookData));
 
         profilePage.openPage()
                 .checkEmptyTableWithoutBooks();
