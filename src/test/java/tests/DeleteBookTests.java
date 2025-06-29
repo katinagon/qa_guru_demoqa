@@ -25,17 +25,12 @@ public class DeleteBookTests extends TestBase {
     public void successDeleteBookTest() {
         ProfilePage profilePage = new ProfilePage();
 
-        IsbnModel isbn = new IsbnModel();
-        isbn.setIsbn(bookISBN);
+        IsbnModel isbn = new IsbnModel(bookISBN);
         List<IsbnModel> isbns = List.of(isbn);
 
-        AddBookRequestModel addBookData = new AddBookRequestModel();
-        addBookData.setUserId(userId);
-        addBookData.setCollectionOfIsbns(isbns);
+        AddBookRequestModel addBookData = new AddBookRequestModel(userId, isbns);
 
-        DeleteBookRequestModel deleteBookData = new DeleteBookRequestModel();
-        deleteBookData.setUserId(userId);
-        deleteBookData.setIsbn(bookISBN);
+        DeleteBookRequestModel deleteBookData = new DeleteBookRequestModel(userId, bookISBN);
 
         step("Удаление всех имеющихся в корзине книг", () ->
                 deleteAllBooksRequest());

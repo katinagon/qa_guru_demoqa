@@ -13,9 +13,7 @@ import static tests.TestData.password;
 public class AccountApiRequests {
 
     public static LoginResponseModel loginRequest() {
-        LoginRequestModel authData = new LoginRequestModel();
-        authData.setUserName(login);
-        authData.setPassword(password);
+        LoginRequestModel authData = new LoginRequestModel(login, password);
 
         return given(authRequestSpec)
                 .body(authData)
