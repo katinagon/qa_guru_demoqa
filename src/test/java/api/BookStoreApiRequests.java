@@ -6,8 +6,8 @@ import models.DeleteBookRequestModel;
 import static io.restassured.RestAssured.given;
 import static specs.BookSpec.bookRequestSpec;
 import static specs.BookSpec.bookResponseSpec;
-import static tests.TestBase.bookEP;
-import static tests.TestBase.booksEP;
+import static config.BaseConfig.bookEP;
+import static config.BaseConfig.booksEP;
 import static tests.TestData.token;
 import static tests.TestData.userId;
 

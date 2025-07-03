@@ -6,7 +6,7 @@ import models.LoginResponseModel;
 import static io.restassured.RestAssured.given;
 import static specs.LoginSpec.authRequestSpec;
 import static specs.LoginSpec.authResponseSpec;
-import static tests.TestBase.loginEP;
+import static config.BaseConfig.loginEP;
 import static tests.TestData.login;
 import static tests.TestData.password;
 

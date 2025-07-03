@@ -12,9 +12,26 @@ import java.nio.charset.StandardCharsets;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.openqa.selenium.logging.LogType.BROWSER;
+import static tests.TestBase.webConfig;
 
 public class Attach {
-    private static final String SELENOID_URL = System.getProperty("selenoid.url");
+    private static final String SELENOID_URL = getSelenoidUrl();
+
+    private static String getSelenoidUrl() {
+        String customUrl = System.getProperty("selenoid.url");
+        if (customUrl != null && !customUrl.isEmpty()) {
+            return customUrl;
+        }
+        return extractDomainFromUrl(webConfig.getRemoteUrl());
+    }
+
+    private static String extractDomainFromUrl(String url) {
+        try {
+            return new URL(url).getHost();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Invalid remoteUrl in config: " + url, e);
+        }
+    }
 
     @Attachment(value = "{attachName}", type = "image/png")
     public static byte[] screenshotAs(String attachName) {
@@ -56,7 +73,7 @@ public class Attach {
         return null;
     }
 
-    public static String getSessionId(){
+    public static String getSessionId() {
         return ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
     }
 }
